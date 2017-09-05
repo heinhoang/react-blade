@@ -1,21 +1,32 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from 'react-redux';
+import { createHashHistory } from 'history';
+
+import store from './store';
+import { NoMatch, Signup } from './pages';
+import { Layout } from './containers';
+
 import './App.css';
 
-class App extends Component {
-  render() {
+const App = () => {
+    const history = createHashHistory();
+    const appStore = store(history);
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Provider store={appStore}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                    <Route path="/dashboard" name="Layout" component={Layout} />
+                    <Route exact path="/signup" name="Signup" component={Signup} />
+                    <Redirect from="/" to='/dashboard' />
+                    <Route component={NoMatch} />
+                </Switch>
+            </ConnectedRouter>
+        </Provider>
     );
-  }
-}
+};
 
 export default App;
