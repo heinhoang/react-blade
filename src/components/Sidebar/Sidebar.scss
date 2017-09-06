@@ -6,4 +6,11 @@
     top: 0;
     height: 100vh;
     color: #fff;
+    transition: all .3s cubic-bezier(.215,.61,.355,1);
+    &.collapsed {
+        width: 24px;
+        .menu__toggle, .sub-menu {
+            display: none;
+        }
+    }
 }

@@ -11,7 +11,8 @@ const isAuthenticated = () => {
         initialState = {
             isAuthenticated: true,
             token: token,
-            name: jwtDecode(token).sub
+            // name: jwtDecode(token).sub
+            name: token
         };
     }
 

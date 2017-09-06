@@ -1,38 +1,42 @@
 import React from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export default class Header extends React.Component {
-    constructor(props) {
-        super(props);
+import './Header.css';
+import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-    render() {
-        return (
-            <div>
-                <Navbar color="faded" light toggleable>
-                    <NavbarToggler right onClick={this.toggle} />
+const Header = ({ toggleSidebar }) => {
+    const toggle = (e) => {
+        e.preventDefault();
+        toggleSidebar();
+    };
+
+    return (
+        <div>
+            <Navbar color="faded">
+                <Button type="button" onClick={toggle}>
+                    <i className="fa fa-bars"></i>
+                </Button>
+
+                <div className="navigation">
+                    <Nav className="navigation__nav">
+                        <NavItem>
+                            <NavLink href="/components/">Components</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                        </NavItem>
+                    </Nav>
                     <NavbarBrand href="/">reactstrap</NavbarBrand>
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
-            </div>
-        );
-    }
-}
+                </div>
+            </Navbar>
+        </div>
+    );
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Header);

@@ -5,4 +5,9 @@
   z-index: 900;
   top: 0;
   height: 100vh;
-  color: #fff; }
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .sidebar.collapsed {
+    width: 24px; }
+    .sidebar.collapsed .menu__toggle, .sidebar.collapsed .sub-menu {
+      display: none; }

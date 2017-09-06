@@ -2,4 +2,7 @@
   position: relative; }
 
 .app__main {
-  margin-left: 240px; }
+  margin-left: 240px;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .app__main.collapsed {
+    margin-left: 24px; }

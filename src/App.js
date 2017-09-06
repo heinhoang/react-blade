@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
 
 import store from './store';
-import { NoMatch, Signup } from './pages';
+import { NoMatch, Signup, Login } from './pages';
 import { Layout } from './containers';
 
 import './App.css';
@@ -21,6 +21,7 @@ const App = () => {
                 <Switch>
                     <Route path="/dashboard" name="Layout" component={Layout} />
                     <Route exact path="/signup" name="Signup" component={Signup} />
+                    <Route exact path="/login" name="Login" component={Login} />
                     <Redirect from="/" to='/dashboard' />
                     <Route component={NoMatch} />
                 </Switch>

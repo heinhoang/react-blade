@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import jwtDecode from 'jwt-decode';
+
 import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
@@ -21,7 +22,8 @@ export default (state = initialState, action) => {
         return state.merge({
             isAuthenticated: true,
             token: action.token,
-            name: jwtDecode(action.token).sub
+            // name: jwtDecode(action.token).sub
+            name: action.token
         });
     }
     case SIGNUP_USER_FAILURE:

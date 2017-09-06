@@ -1,5 +1,6 @@
-import { takeLatest } from 'redux-saga';
-import { put, call, select } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+
 import { LOGIN_USER, SIGNUP_USER } from '../constants/auth';
 import {
     loginUserSuccess,
@@ -7,7 +8,6 @@ import {
     signupUserSuccess,
     signupUserFailure
 } from '../actions/auth';
-import { push } from 'react-router-redux';
 
 const getForm = (state, form) => {
     return state.getIn(['form', form]).toJS();
