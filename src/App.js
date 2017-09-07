@@ -7,7 +7,7 @@ import { createHashHistory } from 'history';
 
 import store from './store';
 import { NoMatch, Signup, Login } from './pages';
-import { Layout } from './containers';
+import { Layout, Resources } from './containers';
 
 import './App.css';
 
@@ -22,6 +22,7 @@ const App = () => {
                     <Route path="/dashboard" name="Layout" component={Layout} />
                     <Route exact path="/signup" name="Signup" component={Signup} />
                     <Route exact path="/login" name="Login" component={Login} />
+                    <Route exact path="/posts" name="posts" component={Resources} />
                     <Redirect from="/" to='/dashboard' />
                     <Route component={NoMatch} />
                 </Switch>

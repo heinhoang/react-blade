@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import Resource from './Resource/Resource';
+import Resource from './PostCell/PostCell';
 
-const CrudGrid = ({
+const PostGrid = ({
     resources,
     searchTerm,
     deleteResource
@@ -14,11 +14,16 @@ const CrudGrid = ({
             <Row>
                 {
                     resources
-                        .filter(({ title }) => title.toLowerCase().include(searchTerm))
+                        .filter(({ title }) => {
+                            const matchedKey = searchTerm ? searchTerm.toLowerCase() : '';
+                            const exp = new RegExp(matchedKey);
+                            return title.toLowerCase().match(exp);
+                        })
                         .map((resource, i) => (
-                            <Col>
+                            <Col xs="12" sm="12" md="4"
+                                key={resource.id}
+                            >
                                 <Resource  {...resource}
-                                    key={resource._id}
                                     i={i}
                                     deleteResource={deleteResource}
                                 />
@@ -30,10 +35,10 @@ const CrudGrid = ({
     );
 };
 
-CrudGrid.propTypes = {
-    resources: PropTypes.object,
+PostGrid.propTypes = {
+    resources: PropTypes.array,
     searchTerm: PropTypes.string,
     deleteResource: PropTypes.func
 };
 
-export default CrudGrid;
+export default PostGrid;

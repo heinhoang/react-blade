@@ -1,14 +1,14 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleWare from 'redux-saga';
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 
 import rootSaga from './saga';
 import { LOGOUT_USER } from './constants/auth';
 import isAuthenticated from './utils/isAuthenticated';
 import reducer from './reducers';
 
-const initialState = Immutable.fromJS({
+const initialState = fromJS({
     auth: isAuthenticated()
 });
 
