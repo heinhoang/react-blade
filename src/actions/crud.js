@@ -35,9 +35,10 @@ function getResourcesFailure() {
     };
 }
 
-function postResource() {
+function postResource(meta = {}) {
     return {
-        type: POST_RESOURCE
+        type: POST_RESOURCE,
+        meta
     };
 }
 

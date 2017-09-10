@@ -17,7 +17,10 @@ import {
 import {
     logoutUser
 } from '../actions/auth';
-import { getApiResources } from '../utils/crud';
+import {
+    getApiResources,
+    postApiResource
+} from '../utils/crud';
 
 const selectedResources = (state) => {
     return state.getIn(['resources', 'list']).toJS();
@@ -27,15 +30,6 @@ const selectedPicture = (state) => {
     return state.getIn(['filestack', 'url'], '');
 }
 
-// const fetchResources = () => {
-//     return fetch('http://localhost:8080/resources', {
-//         headers: new Headers({
-//             'Content-Type': 'application/json'
-//         })
-//     })
-//         .then(response => response.json());
-// };
-
 const deleteServerResource = (id) => {
     return fetch(`http://localhost:8080/resources/${id}`, {
         headers: new Headers({
@@ -43,23 +37,6 @@ const deleteServerResource = (id) => {
             'x-access-token': localStorage.getItem('token')
         }),
         method: 'DELETE',
-    })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json();
-            }
-            throw response;
-        });
-}
-
-const postServerResource = (resource) => {
-    return fetch('http://localhost:8080/resources', {
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'x-access-token': localStorage.getItem('token')
-        }),
-        method: 'POST',
-        body: JSON.stringify(resource)
     })
         .then(response => {
             if (response.status === 200) {
@@ -100,18 +77,16 @@ function* deleteResource(action) {
     }
 }
 
-const getResourceForm = (state) => {
-    return state.getIn(['form', 'resource']).toJS();
+const getResourceForm = (meta) => (state) => {
+    return state.getIn(['form', meta.form]).toJS().values;
 }
 
-function* postResource() {
-    const picture = yield select(selectedPicture);
-    const resource = yield select(getResourceForm);
-    const newResource = Object.assign({}, { picture }, resource.values);
+function* postResource({ meta }) {
+    const resource = yield select(getResourceForm(meta));
     try {
-        const result = yield call(postServerResource, newResource);
+        console.log(resource);
+        const result = yield call(postApiResource, meta.url, resource);
         yield put(postResourceSuccess());
-        yield put(push('/resources'));
     } catch (e) {
         let message;
         if (e.status === 403) {

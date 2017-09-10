@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { PostGrid, APagination } from '../../components';
+import { PostGrid, APagination, Search } from '../../components';
 import {
     deleteResource as deleteResourceAction,
     getResources as getResourcesAction
@@ -50,6 +50,7 @@ class Resources extends PureComponent {
         } = this.props;
         return (
             <div>
+                <Search />
                 <PostGrid
                     resources={resources.data}
                     searchTerm={searchTerm}

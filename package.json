@@ -6,6 +6,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^4.0.0-beta",
+    "draft-js": "^0.10.1",
+    "draft-js-export-html": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "immutable": "^3.8.1",
@@ -16,10 +18,12 @@
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
     "react-dom": "^15.6.1",
+    "react-quill": "^1.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scripts": "1.0.13",
+    "react-select": "^1.0.0-rc.5",
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
     "redux-form": "^7.0.3",
@@ -33,9 +37,11 @@
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock-server": "json-server mock-server/data.js --port 3004"
   },
   "devDependencies": {
+    "json-server": "^0.12.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.1"
   }

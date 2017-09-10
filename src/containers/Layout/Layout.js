@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
+import { Switch, Route } from 'react-router-dom';
 
 import './Layout.css';
 import { Header, Sidebar } from '../../components';
+import Post from '../../components/Post/Post';
 
 const Layout = ({ sidebarOpened, match }) => {
     const sidebarToggleClass = sidebarOpened ? '' : 'collapsed';
@@ -22,12 +23,13 @@ const Layout = ({ sidebarOpened, match }) => {
                                 <Route path="/multi-steps" component={MultiSteps} />
                                 <Redirect from="/" to="/dashboard" />
                             </Switch>*/}
-                        {`${match.path}/a`}
-                        {/*<Switch>
-                                    <Route exact path="/" name="Dashboard" component={Dashboard} />
-                                    <Route path={'/dashboard/a'} component={DataTable} />
-                                    <Route path="/dashboard/b" component={MultiSteps} />
-                                </Switch>*/}
+                        {`${match.path}`}
+                        <Switch>
+                            {/* <Route exact path="/" name="Dashboard" component={Dashboard} /> */}
+                            {/* <Route path={'/dashboard/a'} component={DataTable} /> */}
+                            {/* <Route path="/dashboard/b" component={MultiSteps} /> */}
+                            <Route path="/dashboard/posts" component={Post} />
+                        </Switch>
                     </div>
                 </main>
             </div>

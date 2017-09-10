@@ -9,13 +9,14 @@ const PostGrid = ({
     searchTerm,
     deleteResource
 }) => {
+    console.log(searchTerm);
     return (
         <Container>
             <Row>
                 {
                     resources
                         .filter(({ title }) => {
-                            const matchedKey = searchTerm ? searchTerm.toLowerCase() : '';
+                            const matchedKey = typeof searchTerm === 'string' && searchTerm !== '' ? searchTerm.toLowerCase() : '';
                             const exp = new RegExp(matchedKey);
                             return title.toLowerCase().match(exp);
                         })
