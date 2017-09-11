@@ -11,7 +11,7 @@ import {
     POST_RESOURCE_SUCCESS,
     POST_RESOURCE_FAILURE,
 
-    SET_SEARCH_TERM,
+    SET_SEARCH_TERM
 } from '../constants/crud';
 
 
@@ -22,10 +22,10 @@ function getResources(meta = {}) {
     };
 }
 
-function getResourcesSuccess(resources) {
+function getResourcesSuccess({ resourceName, data }) {
     return {
         type: GET_RESOURCES_SUCCESS,
-        payload: { resources }
+        payload: { resourceName, data }
     };
 }
 
@@ -54,17 +54,27 @@ function postResourceFailure() {
     };
 }
 
-function deleteResource(id) {
+/**
+ * 
+ * @param {object} payload
+ * expected to be like
+ * {
+ *      id: string,
+ *      apiUrl: string,
+ *      reRenderParams: string
+ * }
+ */
+function deleteResource(payload = {}) {
     return {
         type: DELETE_RESOURCE,
-        payload: { id }
+        payload
     };
 }
 
-function deleteResourceSuccess(resources) {
+function deleteResourceSuccess({ resourceName, data }) {
     return {
         type: DELETE_RESOURCE_SUCCESS,
-        payload: { resources }
+        payload: { resourceName, data }
     };
 }
 
@@ -91,5 +101,5 @@ export {
     deleteResource,
     deleteResourceSuccess,
     deleteResourceFailure,
-    setSearchTerm
+    setSearchTerm,
 };

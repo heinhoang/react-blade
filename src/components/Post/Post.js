@@ -1,15 +1,13 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
-import { Field, reduxForm, propTypes, FieldArray } from 'redux-form/immutable';
-import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Field, reduxForm, propTypes } from 'redux-form/immutable';
+import { Container, Row, Col, Button, Form } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 
 import { handleEditorChange as handleEditorChangeAction } from '../../actions/ui';
 import { postResource as postResourceAction } from '../../actions/crud';
-import { API_URI } from '../../constants/config';
+import { API_URL } from '../../constants/config';
 import SelectWrapper from '../../theme/components/SelectWrapper/SelectWrapper';
 import InputWrapper from '../../theme/components/InputWrapper/InputWrapper';
 import HTMLEditor from '../../theme/components/HTMLEditor/HTMLEditor';
@@ -32,7 +30,7 @@ class Post extends React.PureComponent {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.postResource({ url: `${API_URI}/posts`, form: formName, editorValue: this.props.editorState });
+        this.props.postResource({ url: `${API_URL}/posts`, form: formName, editorValue: this.props.editorState });
         return false;
     };
 
@@ -91,7 +89,7 @@ class Post extends React.PureComponent {
 
 //     const handleSubmit = (e) => {
 //         e.preventDefault();
-//         postResource({ url: `${API_URI}/posts`, form: formName, editorValue: editorState });
+//         postResource({ url: `${API_URL}/posts`, form: formName, editorValue: editorState });
 //         return false;
 //     };
 

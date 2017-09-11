@@ -19,38 +19,19 @@ import {
 } from '../actions/auth';
 import {
     getApiResources,
-    postApiResource
+    postApiResource,
+    deleteApiResource
 } from '../utils/crud';
-
-const selectedResources = (state) => {
-    return state.getIn(['resources', 'list']).toJS();
-}
 
 const selectedPicture = (state) => {
     return state.getIn(['filestack', 'url'], '');
 }
 
-const deleteServerResource = (id) => {
-    return fetch(`http://localhost:8080/resources/${id}`, {
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'x-access-token': localStorage.getItem('token')
-        }),
-        method: 'DELETE',
-    })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json();
-            }
-            throw response;
-        });
-}
-
 function* getResources({ meta }) {
     try {
-        const data = yield call(getApiResources, `${meta.api}/posts?page=${meta.pagination.page}&limit=${meta.pagination.limit}`);
+        const data = yield call(getApiResources, meta.api);
         yield put(getResourcesSuccess({
-            pagination: meta.pagination,
+            resourceName: meta.name,
             data
         }));
     } catch (e) {
@@ -58,12 +39,20 @@ function* getResources({ meta }) {
     }
 }
 
-function* deleteResource(action) {
-    const { id } = action;
-    const resources = yield select(selectedResources);
+function* deleteResource({ payload }) {
+    const { id, apiUrl, reRenderParams, resourceName } = payload;
+    console.log(payload);
     try {
-        const result = yield call(deleteServerResource, id);
-        yield put(deleteResourceSuccess(resources.filter(resource => resource._id !== id)));
+        const result = yield call(deleteApiResource, `${apiUrl}/${id}`);
+        console.log(result);
+        if (result) {
+            const newData = yield call(getApiResources, `${apiUrl}/${reRenderParams}`);
+            console.log(newData);
+            yield put(deleteResourceSuccess({
+                resourceName,
+                data: newData
+            }));
+        }
     } catch (e) {
         let message = '';
         if (e.status === 403) {

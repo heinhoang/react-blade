@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactQuill from 'react-quill';
 
+// https://codepen.io/alexkrolick/pen/xgyOXQ
 class HTMLEditor extends PureComponent {
     constructor(props) {
         super(props);
@@ -20,7 +21,6 @@ class HTMLEditor extends PureComponent {
     }
 
     render() {
-        console.log(this.props.input);
         return (
             <ReactQuill
                 {...this.props}

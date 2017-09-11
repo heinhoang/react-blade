@@ -13,7 +13,7 @@ const APagination = ({
     const pages = Math.ceil(+total/+limit);
     for (let i = 1; i <= pages; i += 1) {
         pItems.push(
-            <PaginationItem key={i}>
+            <PaginationItem key={i} className={page === i ? 'active' : ''}>
                 <PaginationLink onClick={() => paginate(i)}>{i}</PaginationLink>
             </PaginationItem>
         );

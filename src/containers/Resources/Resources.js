@@ -10,13 +10,41 @@ import {
 } from '../../actions/crud';
 import { API_URL } from '../../constants/config';
 
+const resourceName = 'posts';
 class Resources extends PureComponent {
     constructor(props) {
         super(props);
         this.paginate = this.paginate.bind(this);
+        this.deleteR = this.deleteR.bind(this);
     }
 
-    pagination = { page: 1, limit: 9, total: 50 };
+    static propTypes = {
+        resources: PropTypes.object,
+        searchTerm: PropTypes.string,
+        deleteResource: PropTypes.func
+    };
+
+    static defaultProps = {
+        resources: {},
+        searchTerm: ''
+    };
+
+    getR(page = this.pagination.page, limit = this.pagination.limit) {
+        const apiUrl = `${API_URL}/${resourceName}/?_page=${page}&_limit=${limit}`;
+        this.props.getResources({ api: apiUrl, name: resourceName });
+    }
+
+    deleteR(rId, page = this.pagination.page, limit = this.pagination.limit) {
+        this.props.deleteResource({
+            id: rId,
+            apiUrl: `${API_URL}/${resourceName}`,
+            reRenderParams: `?_page=${page}&_limit=${limit}`,
+            resourceName
+        })
+    }
+
+    pagination = this.props.resources.pagination || { page: 1, limit: 9, total: 50 };
+
 
     paginate(i, step = '') {
         const { limit, total } = this.pagination;
@@ -27,40 +55,33 @@ class Resources extends PureComponent {
         } else if (step === 'next') {
             current = i + 1 < pages ? i + 1: pages;
         }
-        console.log(i + ' ' +current);
-        const rePagination = Object.assign({}, this.pagination, { page: current });
-        this.props.getResources({ api: API_URL, pagination: rePagination });
+        console.log(i + ' ' + current);
+        this.getR(current);
     }
 
-    static propTypes = {
-        resources: PropTypes.object,
-        searchTerm: PropTypes.string,
-        deleteResource: PropTypes.func
-    };
-
     componentWillMount() {
-        this.props.getResources({ api: API_URL, pagination: this.pagination });
+        this.getR();
     }
 
     render() {
         const {
             resources,
-            searchTerm,
-            deleteResource
+            searchTerm
         } = this.props;
+        console.log(resources);
         return (
-            <div>
+            Object.keys(resources).length !== 0 ? <div>
                 <Search />
                 <PostGrid
-                    resources={resources.data}
+                    resources={resources && resources.data}
                     searchTerm={searchTerm}
-                    deleteResource={deleteResource}
+                    deleteResource={this.deleteR}
                 />
                 <APagination
-                    pagination={resources.pagination}
+                    pagination={this.pagination}
                     paginate={this.paginate}
-                />
-            </div>
+                /> 
+            </div> : null
         );
     }
 }
@@ -68,14 +89,14 @@ class Resources extends PureComponent {
 const mapStateToProps = (state) => {
     const stateJS = state.toJS();
     return {
-        resources: stateJS.crud.resources,
+        resources: stateJS.crud.resources[resourceName],
         searchTerm: stateJS.crud.searchTerm
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     getResources: bindActionCreators(getResourcesAction, dispatch),
-    deleteResource: bindActionCreators(deleteResourceAction, dispatch)
+    deleteResource: bindActionCreators(deleteResourceAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Resources);

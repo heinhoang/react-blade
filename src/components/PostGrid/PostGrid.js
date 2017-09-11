@@ -2,14 +2,13 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import Resource from './PostCell/PostCell';
+import PostCell from './PostCell/PostCell';
 
 const PostGrid = ({
     resources,
     searchTerm,
     deleteResource
 }) => {
-    console.log(searchTerm);
     return (
         <Container>
             <Row>
@@ -21,10 +20,10 @@ const PostGrid = ({
                             return title.toLowerCase().match(exp);
                         })
                         .map((resource, i) => (
-                            <Col xs="12" sm="12" md="4"
+                            <Col xs="12" md="4"
                                 key={resource.id}
                             >
-                                <Resource  {...resource}
+                                <PostCell  {...resource}
                                     i={i}
                                     deleteResource={deleteResource}
                                 />

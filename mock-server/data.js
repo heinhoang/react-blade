@@ -1,3 +1,5 @@
+const faker = require('faker');
+
 module.exports = () => {
     const data = {
         users: [],
@@ -11,9 +13,12 @@ module.exports = () => {
         });
         data.posts.push({
             id: i,
-            title: `title${i}`,
-            content: 'aaaaaa',
-            gender: 'male'
+            title: faker.lorem.sentence(),
+            subTitle: faker.lorem.sentence(),
+            content: faker.lorem.paragraph(2),
+            imageUrl: faker.random.image(),
+            createdAt: faker.date.past(),
+            createdBy: faker.name.findName()
         });
     }
     return data;

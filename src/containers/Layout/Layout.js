@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './Layout.css';
 import { Header, Sidebar } from '../../components';
+import { Resources } from '../../containers';
 import Post from '../../components/Post/Post';
 
 const Layout = ({ sidebarOpened, match }) => {
@@ -28,7 +29,8 @@ const Layout = ({ sidebarOpened, match }) => {
                             {/* <Route exact path="/" name="Dashboard" component={Dashboard} /> */}
                             {/* <Route path={'/dashboard/a'} component={DataTable} /> */}
                             {/* <Route path="/dashboard/b" component={MultiSteps} /> */}
-                            <Route path="/dashboard/posts" component={Post} />
+                            <Route path="/dashboard/posts/add" component={Post} />
+                            <Route exact path="/dashboard/posts" name="posts" component={Resources} />
                         </Switch>
                     </div>
                 </main>
