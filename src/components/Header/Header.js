@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import './Header.css';
 import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
 
-const Header = ({ toggleSidebar }) => {
+const Header = ({ toggleSidebar, auth }) => {
     const toggle = (e) => {
         e.preventDefault();
         toggleSidebar();
@@ -21,12 +21,13 @@ const Header = ({ toggleSidebar }) => {
 
                 <div className="navigation">
                     <Nav className="navigation__nav">
-                        <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-                        </NavItem>
+                        {
+                            auth.isAuthenticated ? <NavItem>
+                                <NavLink href="/components/">
+                                    {auth.token}
+                                </NavLink>
+                            </NavItem> : null
+                        }
                     </Nav>
                     <NavbarBrand href="/">reactstrap</NavbarBrand>
                 </div>
@@ -35,8 +36,12 @@ const Header = ({ toggleSidebar }) => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    auth: state.getIn(['auth']).toJS()
+});
+
 const mapDispatchToProps = (dispatch) => ({
     toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

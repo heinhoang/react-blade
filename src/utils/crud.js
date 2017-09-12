@@ -7,10 +7,8 @@ export const getApiResources = (url) => axios.get(url, {
 })
     .then(response => response.data);
 
-export const postApiResource = (url, resource) => {
-    return axios.post(url, {
-        ...resource
-    })
+export const postApiResource = (url, resource, config = {}) => {
+    return axios.post(url, resource, config)
         .then(response => {
             if (response.status === 200) {
                 return response;

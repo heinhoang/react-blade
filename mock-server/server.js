@@ -1,22 +1,21 @@
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const path = require('path');
+const fs = require('fs');
+const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 const data = require('./data');
-const router = jsonServer.router(path.join(__dirname, 'db.json'));
+const dbFilePath = path.join(__dirname, 'db.json');
+// generate db.json file
+fs.writeFileSync(dbFilePath, JSON.stringify(data), 'utf-8');
+
+const router = jsonServer.router(dbFilePath);
 const middlewares = jsonServer.defaults();
-const db = router.db;
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
-// generate data
-server.post('/generate/:collection', function (req, res) {
-    console.log(JSON.stringify(router));
-    // db.object[req.params.collection] = data[req.params.collection];
-    // db.write();
-    // console.log(db);
-    res.send(router);
-});
+
 server.use(router);
 
 const PORT = 3004;

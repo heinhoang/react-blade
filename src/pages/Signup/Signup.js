@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { signupUser as signupUserAction } from '../../actions/auth';
+import InputWrapper from '../../theme/components/InputWrapper/InputWrapper';
 
 class Signup extends PureComponent {
     register() {
@@ -27,18 +28,18 @@ class Signup extends PureComponent {
         return (
             <Container className="signup-form">
                 <Row>
-                    <Col sm={{ size: 6, offset: 3 }}>
+                    <Col md={{ size: 6, offset: 3 }}>
                         <Form>
                             <Field
                                 name="email"
                                 type="email"
-                                component={renderInput}
+                                component={InputWrapper}
                                 placeholder="email"
                             />
                             <Field
                                 name="password"
                                 type="password"
-                                component={renderInput}
+                                component={InputWrapper}
                                 placeholder="password"
                             />
                             <Button type="button" onClick={() => this.register()}>Submit</Button>

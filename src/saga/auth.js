@@ -9,6 +9,10 @@ import {
     signupUserFailure
 } from '../actions/auth';
 
+import {
+    postApiResource
+} from '../utils/crud';
+
 const getForm = (state, form) => {
     return state.getIn(['form', form]).toJS();
 }

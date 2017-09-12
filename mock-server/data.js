@@ -1,6 +1,7 @@
 const faker = require('faker');
+const jwt = require('jsonwebtoken');
 
-module.exports = () => {
+const generateData = () => {
     const data = {
         users: [],
         posts: []
@@ -9,7 +10,12 @@ module.exports = () => {
     for (let i = 0; i < 50; i++) {
         data.users.push({
             id: i,
-            name: `user${i}`
+            userName: faker.internet.userName(),
+            email: faker.internet.email(),
+            avatar: faker.image.avatar(),
+            password: faker.internet.password(),
+            name: faker.name.findName(),
+            token: jwt.sign(i, 'secret_token')
         });
         data.posts.push({
             id: i,
@@ -23,3 +29,6 @@ module.exports = () => {
     }
     return data;
 };
+
+// console.log(JSON.stringify(generateData()));
+module.exports = generateData();

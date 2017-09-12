@@ -4,12 +4,16 @@ export default [
         icon: 'fa fa-laptop',
         children: [
             {
-                name: 'Dashboard 1',
+                name: 'Dashboard',
                 path: '/dashboard'
             },
             {
-                name: 'Dashboard 2',
-                path: '/dashboard2'
+                name: 'Login',
+                path: '/login'
+            },
+            {
+                name: 'Signup',
+                path: '/signup'
             }
         ]
     },
@@ -18,12 +22,12 @@ export default [
         icon: 'fa fa-music',
         children: [
             {
-                name: 'Layout',
-                path: '/dashboard'
+                name: 'Add post',
+                path: '/dashboard/posts/add'
             },
             {
-                name: 'Layout',
-                path: '/dashboard2'
+                name: 'Posts',
+                path: '/dashboard/posts'
             }
         ]
     },

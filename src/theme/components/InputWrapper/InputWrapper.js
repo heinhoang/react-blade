@@ -9,7 +9,9 @@ class InputWrapper extends PureComponent {
             input,
             type,
             meta: { touched, error },
-            ...custom } = this.props;
+            ...custom
+        } = this.props;
+
         return (
             <div>
                 <Input type={type} { ...input } { ...custom } />

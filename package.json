@@ -27,6 +27,7 @@
     "react-select": "^1.0.0-rc.5",
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
+    "redux-auth-wrapper": "^2.0.1",
     "redux-form": "^7.0.3",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.15.6"
@@ -39,10 +40,12 @@
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "mock-server": "json-server mock-server/data.js --port 3004"
+    "mock:simple-server": "json-server mock-server/data.js --port 3004",
+    "mock:server": "node mock-server/server.js"
   },
   "devDependencies": {
     "json-server": "^0.12.0",
+    "jsonwebtoken": "^8.0.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.1"
   }

@@ -11,6 +11,7 @@ import { API_URL } from '../../constants/config';
 import SelectWrapper from '../../theme/components/SelectWrapper/SelectWrapper';
 import InputWrapper from '../../theme/components/InputWrapper/InputWrapper';
 import HTMLEditor from '../../theme/components/HTMLEditor/HTMLEditor';
+import { userAuthWrapper } from '../../utils/auth';
 
 // https://github.com/larkintuckerllc/hello-draft/blob/master/src/Contact.jsx
 const formName = 'post';
@@ -73,101 +74,6 @@ class Post extends React.PureComponent {
     }
 }
 
-// const Post = ({
-//     postResource,
-//     editorState,
-//     selectState,
-//     handleEditorChange,
-//     submitting,
-//     change,
-//     ...props
-// }) => {
-//     const hdlEditorChange = (editorValue) => {
-//         handleEditorChange({ form: formName, field: 'editor', value: editorValue });
-//         return false;
-//     };
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         postResource({ url: `${API_URL}/posts`, form: formName, editorValue: editorState });
-//         return false;
-//     };
-
-//     const renderInput = ({
-//         input,
-//         type,
-//         meta: { touched, error },
-//         ...custom
-//     }) => (
-//             <div>
-//                 <input type={type} { ...input } { ...custom } />
-//                 {/* {touched && error && <div>{error}</div>} */}
-//             </div>
-//         );
-
-//     const renderSelectWrapper = ({
-//         input,
-//         selectValue,
-//         options,
-//         onSelectChange,
-//         ...props
-//     }) => {
-//         console.log(input);
-//         return <Select
-//             {...input}
-//             options={options}
-//         />;
-//     };
-
-//     const selectChange = (option) => {
-//         let value = option ? option.value : '';
-//         // handleEditorChange({ form: formName, field: 'gender', value });
-//         console.log(option);
-//         console.log(selectState);
-//         // console.log(props);
-//         props.dispatch(change('gender', value));
-//         // console.log(value);
-//     }
-
-//     return (
-//         <Container>
-//             <Row>
-//                 <Col xs="8">
-//                     <Form onSubmit={handleSubmit}>
-//                         <Field
-//                             name="title"
-//                             type="text"
-//                             component={InputWrapper}
-//                             placeholder="Title"
-//                             disabled={submitting}
-//                         />
-//                         <ReactQuill
-//                             value={editorState}
-//                             onChange={hdlEditorChange}
-//                         />
-//                         <Select
-//                             name="gender"
-//                             value={selectState}
-//                             options={selectOptions}
-//                             onChange={selectChange}
-//                             clearable
-//                         />
-//                         {selectState}
-//                         {/* <Field
-//                             value={selectState}
-//                             name="gender"
-//                             component={SelectWrapper}
-//                             options={selectOptions}
-//                             onChange={selectChange}
-//                         />  */}
-//                         <Button type="submit">Submit</Button>
-//                     </Form>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     );
-// };
-
 Post.defaultProps = {
     editorState: '',
     selectState: selectOptions[0].value
@@ -184,7 +90,7 @@ Post.propTypes = {
 const mapStateToProps = (state) => {
     return {
         editorState: state.getIn(['ui', 'forms', formName, 'editor']),
-        // selectState: state.getIn(['ui', 'forms', formName, 'gender']),
+        auth: state.getIn(['auth']),
         selectState: state.getIn(['form', formName, 'gender'])
     };
 };
@@ -196,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default reduxForm({
     form: formName
-})(connect(mapStateToProps, mapDispatchToProps)(Post));
+})(connect(mapStateToProps, mapDispatchToProps)(userAuthWrapper(Post)));
