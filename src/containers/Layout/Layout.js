@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import './Layout.css';
-import { Header, Sidebar } from '../../components';
+import { Header, Sidebar, Translated } from '../../components';
 import { Resources } from '../../containers';
 import Post from '../../components/Post/Post';
+import { NoMatch } from '../../pages';
 
 const Layout = ({
     sidebarOpened,
@@ -33,8 +34,11 @@ const Layout = ({
                             {/* <Route exact path="/" name="Dashboard" component={Dashboard} /> */}
                             {/* <Route path={'/dashboard/a'} component={DataTable} /> */}
                             {/* <Route path="/dashboard/b" component={MultiSteps} /> */}
+                            <Route exact path="/dashboard" component={Resources} />
                             <Route exact path="/dashboard/posts/add" component={Post} />
                             <Route exact path="/dashboard/posts" name="posts" component={Resources} />
+                            <Route exact path="/dashboard/translated" component={Translated} />
+                            <Route component={NoMatch} />
                         </Switch>
                     </div>
                 </main>
