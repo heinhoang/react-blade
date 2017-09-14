@@ -3,15 +3,17 @@ import { push } from 'react-router-redux';
 
 import { LOGIN_USER, SIGNUP_USER } from '../constants/auth';
 import {
+    loginUserLoading,
     loginUserSuccess,
     loginUserFailure,
+    signupUserLoading,
     signupUserSuccess,
     signupUserFailure
 } from '../actions/auth';
-
-import {
-    postApiResource
-} from '../utils/crud';
+import { showNotification } from '../actions/notification';
+// import {
+//     postApiResource
+// } from '../utils/crud';
 
 const getForm = (state, form) => {
     return state.getIn(['form', form]).toJS();
@@ -40,6 +42,7 @@ const sendCredentials = (route, credentials) => {
 function* loginUser(action) {
     const { redirection } = action;
     try {
+        yield put(loginUserLoading());
         const credentials = yield select(getForm, 'login');
         const result = yield call(sendCredentials, 'login', credentials.values);
         localStorage.setItem('token', result.token);
@@ -53,11 +56,13 @@ function* loginUser(action) {
             message = 'Sorry, an error occured!';
         }
         yield put(loginUserFailure());
+        yield put(showNotification(message, 'warning'));
     }
 }
 
 function* signupUser() {
     try {
+        yield put(signupUserLoading());
         const credentials = yield select(getForm, 'signup');
         const result = yield call(sendCredentials, 'signup', credentials.values);
         localStorage.setItem('token', result.token);
@@ -71,6 +76,7 @@ function* signupUser() {
             message = 'Sorry, an error occured!';
         }
         yield put(signupUserFailure());
+        yield put(showNotification(message, 'warning'));
     }
 }
 

@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode';
-
 const isAuthenticated = () => {
     const token = localStorage.getItem('token');
     let initialState = {

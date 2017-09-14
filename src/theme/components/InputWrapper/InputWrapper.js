@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Select from 'react-select';
 import { Input } from 'reactstrap';
 
 class InputWrapper extends PureComponent {

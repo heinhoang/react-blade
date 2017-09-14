@@ -1,4 +1,4 @@
-import { Map, merge, fromJS, clear } from 'immutable';
+import { fromJS } from 'immutable';
 import {
     GET_RESOURCES_SUCCESS,
     GET_RESOURCES_FAILURE,
@@ -6,8 +6,7 @@ import {
     DELETE_RESOURCE_SUCCESS,
     DELETE_RESOURCE_FAILURE,
 
-    SET_SEARCH_TERM,
-    SET_PAGINATION
+    SET_SEARCH_TERM
 } from '../constants/crud';
 
 /**
@@ -35,7 +34,6 @@ export default (state = initialState, { type, payload }) => {
         resources[payload.resourceName] = {
             data: payload.data
         };
-        console.log(resources);
         return state.merge({ resources });
     }
     case DELETE_RESOURCE_FAILURE:

@@ -1,8 +1,10 @@
 import {
     LOGIN_USER,
+    LOGIN_USER_LOADING,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
     LOGOUT_USER,
+    SIGNUP_USER_LOADING,
     SIGNUP_USER,
     SIGNUP_USER_SUCCESS,
     SIGNUP_USER_FAILURE
@@ -12,6 +14,12 @@ function loginUser(redirection) {
     return {
         type: LOGIN_USER,
         redirection
+    };
+}
+
+function loginUserLoading() {
+    return {
+        type: LOGIN_USER_LOADING
     };
 }
 
@@ -31,6 +39,12 @@ function loginUserFailure() {
 function logoutUser() {
     return {
         type: LOGOUT_USER
+    };
+}
+
+function signupUserLoading() {
+    return {
+        type: SIGNUP_USER_LOADING
     };
 }
 
@@ -55,9 +69,11 @@ function signupUserFailure() {
 
 export {
     loginUser,
+    loginUserLoading,
     loginUserSuccess,
     loginUserFailure,
     logoutUser,
+    signupUserLoading,
     signupUser,
     signupUserSuccess,
     signupUserFailure

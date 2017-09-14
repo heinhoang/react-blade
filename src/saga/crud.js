@@ -1,5 +1,4 @@
 import { put, select, call, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
 
 import {
     GET_RESOURCES,
@@ -23,9 +22,9 @@ import {
     deleteApiResource
 } from '../utils/crud';
 
-const selectedPicture = (state) => {
-    return state.getIn(['filestack', 'url'], '');
-}
+// const selectedPicture = (state) => {
+//     return state.getIn(['filestack', 'url'], '');
+// }
 
 function* getResources({ meta }) {
     try {

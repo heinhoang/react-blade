@@ -55,7 +55,6 @@ class Resources extends PureComponent {
         } else if (step === 'next') {
             current = i + 1 < pages ? i + 1: pages;
         }
-        console.log(i + ' ' + current);
         this.getR(current);
     }
 
@@ -68,7 +67,6 @@ class Resources extends PureComponent {
             resources,
             searchTerm
         } = this.props;
-        console.log(resources);
         return (
             Object.keys(resources).length !== 0 ? <div>
                 <Search />
