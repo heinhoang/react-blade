@@ -21,10 +21,7 @@ import {
     postApiResource,
     deleteApiResource
 } from '../utils/crud';
-
-// const selectedPicture = (state) => {
-//     return state.getIn(['filestack', 'url'], '');
-// }
+import { showNotification } from '../actions/notification';
 
 function* getResources({ meta }) {
     try {
@@ -34,7 +31,9 @@ function* getResources({ meta }) {
             data
         }));
     } catch (e) {
+        const message = e.message ? e.message : e;
         yield put(getResourcesFailure());
+        showNotification(message, 'warning');
     }
 }
 
@@ -62,6 +61,7 @@ function* deleteResource({ payload }) {
             message = 'Sorry, an error occured!';
         }
         localStorage.removeItem('token');
+        showNotification(message, 'warning');
     }
 }
 
@@ -72,8 +72,7 @@ const getResourceForm = (meta) => (state) => {
 function* postResource({ meta }) {
     const resource = yield select(getResourceForm(meta));
     try {
-        console.log(resource);
-        const result = yield call(postApiResource, meta.url, resource);
+        yield call(postApiResource, meta.url, resource);
         yield put(postResourceSuccess());
     } catch (e) {
         let message;
@@ -85,6 +84,7 @@ function* postResource({ meta }) {
             message = 'Sorry, an error occured!';
         }
         localStorage.removeItem('token');
+        showNotification(message, 'warning');
     }
 
 }

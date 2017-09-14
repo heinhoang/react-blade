@@ -1,12 +1,15 @@
 import {
+    LOADING_RESOURCES,
     GET_RESOURCES,
     GET_RESOURCES_SUCCESS,
     GET_RESOURCES_FAILURE,
 
+    DELETING_RESOURCE,
     DELETE_RESOURCE,
     DELETE_RESOURCE_SUCCESS,
     DELETE_RESOURCE_FAILURE,
 
+    POSTING_RESOURCE,
     POST_RESOURCE,
     POST_RESOURCE_SUCCESS,
     POST_RESOURCE_FAILURE,
@@ -14,6 +17,12 @@ import {
     SET_SEARCH_TERM
 } from '../constants/crud';
 
+// get resources
+function loadingResources() {
+    return {
+        type: LOADING_RESOURCES
+    };
+}
 
 function getResources(meta = {}) {
     return {
@@ -32,6 +41,13 @@ function getResourcesSuccess({ resourceName, data }) {
 function getResourcesFailure() {
     return {
         type: GET_RESOURCES_FAILURE
+    };
+}
+
+// Post resources
+function postingResource() {
+    return {
+        type: POSTING_RESOURCE
     };
 }
 
@@ -54,16 +70,13 @@ function postResourceFailure() {
     };
 }
 
-/**
- * 
- * @param {object} payload
- * expected to be like
- * {
- *      id: string,
- *      apiUrl: string,
- *      reRenderParams: string
- * }
- */
+// delete resources
+function deletingResource() {
+    return {
+        type: DELETING_RESOURCE
+    };
+}
+
 function deleteResource(payload = {}) {
     return {
         type: DELETE_RESOURCE,
@@ -92,12 +105,15 @@ function setSearchTerm(keyword) {
 }
 
 export {
+    loadingResources,
     getResources,
     getResourcesSuccess,
     getResourcesFailure,
+    postingResource,
     postResource,
     postResourceSuccess,
     postResourceFailure,
+    deletingResource,
     deleteResource,
     deleteResourceSuccess,
     deleteResourceFailure,
