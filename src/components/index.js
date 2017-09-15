@@ -4,6 +4,7 @@ import PostGrid from './PostGrid/PostGrid';
 import APagination from './APagination/APagination';
 import Search from './Search/Search';
 import Translated from './Translated/Translated';
+import Animation from './Animation/Animation';
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     PostGrid,
     APagination,
     Search,
-    Translated
+    Translated,
+    Animation
 };

@@ -1,4 +1,5 @@
 import { put, select, call, takeLatest } from 'redux-saga/effects';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import {
     GET_RESOURCES,
@@ -25,6 +26,7 @@ import { showNotification } from '../actions/notification';
 
 function* getResources({ meta }) {
     try {
+        yield put(showLoading());
         const data = yield call(getApiResources, meta.api);
         yield put(getResourcesSuccess({
             resourceName: meta.name,
@@ -34,6 +36,8 @@ function* getResources({ meta }) {
         const message = e.message ? e.message : e;
         yield put(getResourcesFailure());
         showNotification(message, 'warning');
+    } finally {
+        yield put(hideLoading());
     }
 }
 

@@ -8,6 +8,10 @@ export default [
                 path: '/dashboard'
             },
             {
+                name: 'Animation',
+                path: '/dashboard/animation'
+            },
+            {
                 name: 'Add post',
                 path: '/dashboard/posts/add'
             },

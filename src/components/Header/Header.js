@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LoadingBar from 'react-redux-loading-bar';
 
 import './Header.css';
 import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
@@ -21,6 +22,7 @@ const Header = ({ toggleSidebar, auth, logoutUser }) => {
 
     return (
         <div>
+            <LoadingBar style={{ backgroundColor: 'blue', height: '5px' }} />
             <Navbar color="faded">
                 <Button type="button" onClick={toggle}>
                     <i className="fa fa-bars"></i>
