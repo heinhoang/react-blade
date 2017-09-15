@@ -1,0 +1,40 @@
+.loading-bar {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    width: 0;
+    height: 5px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: orange;
+    transition: all 5s;
+    &.start {
+        visibility: visible;
+        opacity: 1;
+        animation: startLoading 5s;
+        animation-fill-mode: forwards;
+    }
+    &.stop {
+        width: 100%;
+        transition: visibility 0.3s ease-out, opacity 0.3s ease-out;
+        visibility: hidden;
+        opacity: 1;
+    }
+}
+
+@keyframes startLoading {
+    0% {
+        width: 0px;
+    }
+    50% {
+        width: 50%
+    }
+    70% {
+        width: 70%
+    }
+    100% {
+        width: 85%
+    }
+}

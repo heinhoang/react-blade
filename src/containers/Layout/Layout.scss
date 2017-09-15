@@ -8,4 +8,10 @@
     &.collapsed {
         margin-left: 24px;
     }
+    &.md {
+        margin-left: auto;
+            &.collapsed {
+                margin-left: auto;
+            }
+    }
 }

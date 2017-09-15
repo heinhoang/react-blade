@@ -1,5 +1,4 @@
 import { put, select, call, takeLatest } from 'redux-saga/effects';
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import {
     GET_RESOURCES,
@@ -23,6 +22,7 @@ import {
     deleteApiResource
 } from '../utils/crud';
 import { showNotification } from '../actions/notification';
+import { showLoading, hideLoading } from '../actions/loadingBar';
 
 function* getResources({ meta }) {
     try {

@@ -6,6 +6,19 @@ export const getApiResources = (url) => axios.get(url, {
     })
 })
     .then(response => response.data);
+// export const getApiResources = (url) => {
+//     var promise = new Promise(function (resolve, reject) {
+//         window.setTimeout(function () {
+//             resolve(axios.get(url, {
+//                 headers: new Headers({
+//                     'Content-Type': 'application/json'
+//                 })
+//             })
+//                 .then(response => response.data));
+//         }, 9000);
+//     });
+//     return promise;
+// }
 
 export const postApiResource = (url, resource, config = {}) => {
     return axios.post(url, resource, config)

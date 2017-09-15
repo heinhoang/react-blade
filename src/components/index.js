@@ -5,6 +5,7 @@ import APagination from './APagination/APagination';
 import Search from './Search/Search';
 import Translated from './Translated/Translated';
 import Animation from './Animation/Animation';
+import LoadingBar from './LoadingBar/LoadingBar';
 
 export {
     Header,
@@ -13,5 +14,6 @@ export {
     APagination,
     Search,
     Translated,
-    Animation
+    Animation,
+    LoadingBar
 };

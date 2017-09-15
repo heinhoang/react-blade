@@ -2,8 +2,6 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleWare from 'redux-saga';
 import { fromJS } from 'immutable';
-import { loadingBarMiddleware } from 'react-redux-loading-bar';
-import promiseMiddleware from 'redux-promise-middleware';
 
 import rootSaga from './saga';
 import { LOGOUT_USER } from './constants/auth';
@@ -21,7 +19,7 @@ const store = (history) => {
 
     // settup store
     const store = createStore(securedReducer, initialState, compose(
-        applyMiddleware(sagaMiddleWare, routerMiddleware(history), promiseMiddleware(), loadingBarMiddleware()),
+        applyMiddleware(sagaMiddleWare, routerMiddleware(history)),
         window.devToolsExtension ? window.devToolsExtension() : f => (f)
     ));
 

@@ -1,5 +1,13 @@
-.sub-menu > .menu__item {
-  padding-left: 48px; }
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  background-color: rgba(34, 34, 34, 0.26);
+  transition: max-height 0.15s ease-out; }
+  .sub-menu > .menu__item {
+    padding-left: 48px; }
+  .sub-menu.opened {
+    max-height: 500px;
+    transition: max-height 0.25s ease-in; }
 
 .menu__item__link {
   color: #fff; }
