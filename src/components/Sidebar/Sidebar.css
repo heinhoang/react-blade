@@ -11,3 +11,6 @@
     width: 24px; }
     .sidebar.collapsed .menu__toggle, .sidebar.collapsed .sub-menu {
       display: none; }
+
+.md .sidebar.collapsed {
+  width: 0; }

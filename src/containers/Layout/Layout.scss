@@ -8,10 +8,10 @@
     &.collapsed {
         margin-left: 24px;
     }
-    &.md {
+}
+
+.md {
+    .app__main {
         margin-left: auto;
-            &.collapsed {
-                margin-left: auto;
-            }
     }
 }

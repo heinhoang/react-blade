@@ -15,16 +15,45 @@ import { Resources } from '../../containers';
 import Post from '../../components/Post/Post';
 import { NoMatch } from '../../pages';
 import { changeResponsive as changeResponsiveAction } from '../../actions/ui';
+import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
 
 class Layout extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.hdlWindowResize = this.hdlWindowResize.bind(this);
+        this.hdlToggleSidebar = this.hdlToggleSidebar.bind(this);
+    }
+
+    hdlWindowResize() {
+        if (window.innerWidth <= 720) {
+            this.props.changeResponsive('md');
+        } else {
+            this.props.changeResponsive('lg');
+        }
+    }
+
+    hdlToggleSidebar(e) {
+        e.preventDefault();
+        this.props.toggleSidebar();
+    }
+
     componentDidMount() {
-        window.addEventListener('resize', () => {
-            if (window.innerWidth <= 720) {
-                this.props.changeResponsive('md');
-            } else {
-                this.props.changeResponsive('lg');
+        // change responsive class
+        this.hdlWindowResize();
+        window.addEventListener('resize', this.hdlWindowResize);
+        // toggle sidebar on small device
+        document.body.addEventListener('click', (e) => {
+            const el = document.querySelector('.md .sidebar');
+            const sidebarToggler = document.querySelector('.md #sidebar-toggler');
+            if (
+                !this.props.sidebarCollaped
+                && sidebarToggler && !sidebarToggler.contains(e.target)
+                && el && !el.contains(e.target)
+            ) {
+                this.hdlToggleSidebar(e);
             }
         });
+
     }
 
     render() {
@@ -36,12 +65,12 @@ class Layout extends PureComponent {
         const sidebarToggleClass = sidebarCollaped ? 'collapsed' : '';
 
         return (
-            <div className="app__container">
+            <div className={`app__container ${responsiveClass}`}>
                 <LoadingBar />
                 <div className={'app__layout'}>
                     <Sidebar toggleClass={sidebarToggleClass} />
-                    <main className={`app__main ${responsiveClass} ${sidebarToggleClass}`}>
-                        <Header />
+                    <main className={`app__main ${sidebarToggleClass}`}>
+                        <Header toggleSidebar={this.hdlToggleSidebar} />
                         {/* <BreadcrumbC /> */}
                         <div className="container-fluid">
                             {/*<Switch>
@@ -76,6 +105,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch),
     changeResponsive: bindActionCreators(changeResponsiveAction, dispatch)
 });
 

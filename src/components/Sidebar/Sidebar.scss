@@ -14,3 +14,11 @@
         }
     }
 }
+
+.md {
+    .sidebar {
+        &.collapsed {
+            width: 0;
+        }
+    }
+}

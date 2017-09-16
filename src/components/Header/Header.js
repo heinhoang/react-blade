@@ -5,15 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './Header.css';
-import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
 import { logoutUser as logoutUserAction } from '../../actions/auth';
 
 const Header = ({ toggleSidebar, auth, logoutUser }) => {
-    const toggle = (e) => {
-        e.preventDefault();
-        toggleSidebar();
-    };
-
     const handleLogout = (e) => {
         e.preventDefault();
         logoutUser();
@@ -22,7 +16,7 @@ const Header = ({ toggleSidebar, auth, logoutUser }) => {
     return (
         <div>
             <Navbar color="faded">
-                <Button type="button" onClick={toggle}>
+                <Button id="sidebar-toggler" type="button" onClick={toggleSidebar}>
                     <i className="fa fa-bars"></i>
                 </Button>
 
@@ -61,7 +55,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch),
     logoutUser: bindActionCreators(logoutUserAction, dispatch),
 });
 

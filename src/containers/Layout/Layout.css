@@ -6,7 +6,6 @@
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1); }
   .app__main.collapsed {
     margin-left: 24px; }
-  .app__main.md {
-    margin-left: auto; }
-    .app__main.md.collapsed {
-      margin-left: auto; }
+
+.md .app__main {
+  margin-left: auto; }

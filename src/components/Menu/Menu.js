@@ -8,7 +8,7 @@ import MenuItem from './MenuItem/MenuItem';
 import { openSidebar as openSidebarAction } from '../../actions/ui';
 
 class Menu extends PureComponent {
-    
+
     render() {
         const {
             routes,
@@ -18,7 +18,7 @@ class Menu extends PureComponent {
         } = this.props;
 
         let menuClass = subMenu ? 'menu sub-menu list-unstyled' : 'menu list-unstyled';
-        if (sidebarOpened.includes(parentKey)) menuClass = `${menuClass} opened`;
+        if (sidebarOpened.indexOf(parentKey) > -1) menuClass = `${menuClass} opened`;
 
         return (
             <ul className={menuClass} >
