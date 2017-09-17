@@ -9,9 +9,9 @@ import {
     Sidebar,
     Translated,
     Animation,
-    LoadingBar
+    LoadingBar,
+    Posts
 } from '../../components';
-import { Resources } from '../../containers';
 import Post from '../../components/Post/Post';
 import { NoMatch } from '../../pages';
 import { changeResponsive as changeResponsiveAction } from '../../actions/ui';
@@ -84,10 +84,10 @@ class Layout extends PureComponent {
                                 {/* <Route exact path="/" name="Dashboard" component={Dashboard} /> */}
                                 {/* <Route path={'/dashboard/a'} component={DataTable} /> */}
                                 {/* <Route path="/dashboard/b" component={MultiSteps} /> */}
-                                <Route exact path="/dashboard" component={Resources} />
+                                <Route exact path="/dashboard" component={Posts} />
                                 <Route exact path="/dashboard/animation" component={Animation} />
                                 <Route exact path="/dashboard/posts/add" component={Post} />
-                                <Route exact path="/dashboard/posts" name="posts" component={Resources} />
+                                <Route exact path="/dashboard/posts" name="posts" component={Posts} />
                                 <Route exact path="/dashboard/translated" component={Translated} />
                                 <Route component={NoMatch} />
                             </Switch>

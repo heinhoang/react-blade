@@ -14,7 +14,7 @@ const PostGrid = ({
             <Row>
                 {
                     resources
-                        .filter(({ title }) => {
+                        .filter(({title}) => {
                             const matchedKey = typeof searchTerm === 'string' && searchTerm !== '' ? searchTerm.toLowerCase() : '';
                             const exp = new RegExp(matchedKey);
                             return title.toLowerCase().match(exp);
@@ -35,8 +35,12 @@ const PostGrid = ({
     );
 };
 
+PostGrid.defaultProps = {
+    resources: []
+}
+
 PostGrid.propTypes = {
-    resources: PropTypes.array,
+    resources: PropTypes.array.isRequired,
     searchTerm: PropTypes.string,
     deleteResource: PropTypes.func
 };

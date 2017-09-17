@@ -43,13 +43,10 @@ function* getResources({ meta }) {
 
 function* deleteResource({ payload }) {
     const { id, apiUrl, reRenderParams, resourceName } = payload;
-    console.log(payload);
     try {
         const result = yield call(deleteApiResource, `${apiUrl}/${id}`);
-        console.log(result);
         if (result) {
             const newData = yield call(getApiResources, `${apiUrl}/${reRenderParams}`);
-            console.log(newData);
             yield put(deleteResourceSuccess({
                 resourceName,
                 data: newData
