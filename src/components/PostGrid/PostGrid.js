@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import PostCell from './PostCell/PostCell';
 
 const PostGrid = ({
+    path,
     resources,
     searchTerm,
     deleteResource
 }) => {
     return (
-        <Container>
+        resources.length !== 0 && <Container>
             <Row>
                 {
                     resources
@@ -25,6 +26,7 @@ const PostGrid = ({
                             >
                                 <PostCell  {...resource}
                                     i={i}
+                                    path={path}
                                     deleteResource={deleteResource}
                                 />
                             </Col>

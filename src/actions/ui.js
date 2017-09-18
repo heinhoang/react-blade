@@ -1,7 +1,6 @@
 import {
     TOGGLE_SIDEBAR,
     OPEN_SIDEBAR,
-    EDITOR_STATE_CHANGE,
     CHANGE_RESPONSIVENESS
 } from '../constants/ui';
 
@@ -19,12 +18,12 @@ export const changeResponsive = (payload) => ({
     payload
 });
 
-export const handleEditorChange = ({ form, field, value }) => {
-    const payload = {};
-    payload[form] = {};
-    payload[form][field] = value;
-    return {
-        type: EDITOR_STATE_CHANGE,
-        payload
-    };
-};
+// export const handleEditorChange = ({ form, field, value }) => {
+//     const payload = {};
+//     payload[form] = {};
+//     payload[form][field] = value;
+//     return {
+//         type: EDITOR_STATE_CHANGE,
+//         payload
+//     };
+// };

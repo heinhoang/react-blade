@@ -1,40 +1,32 @@
 import React from 'react';
 import { Field, reduxForm, propTypes } from 'redux-form/immutable';
-import { Form, FormGroup, Input, Button } from 'reactstrap';
+import { Form, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { setSearchTerm as setSearchTermAction } from '../../actions/crud';
+import { InputWrapper } from '../../theme/components';
 
 const Search = ({
     submitting,
     invalid,
-    setSearchTerm
+    setSearchTerm,
+    handleSubmit
 }) => {
-    const renderInput = ({
-        input,
-        type,
-        meta: { touched, error },
-        ...custom
-    }) => (
-        <FormGroup>
-            <Input id="search-input" type={type} { ...input } { ...custom } />
-            {touched && error && <div>{error}</div>}
-        </FormGroup>
-    );
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const keyword = document.getElementById('search-input').value;
+    const hdlSubmit = (values) => {
+        const keyword = values.get('search');
         setSearchTerm(keyword);
+        return false;
     };
 
     return (
-        <Form inline onSubmit={handleSubmit}>
+        <Form inline onSubmit={handleSubmit(hdlSubmit)}>
             <Field
                 name="search"
                 type="text"
-                component={renderInput}
+                id="search-input"
+                component={InputWrapper}
                 placeholder="keyword..."
                 disabled={submitting}
             />

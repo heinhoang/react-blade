@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Input } from 'reactstrap';
 
 class InputWrapper extends PureComponent {
-
     render() {
         const {
             input,
@@ -13,7 +12,9 @@ class InputWrapper extends PureComponent {
 
         return (
             <div>
-                <Input type={type} { ...input } { ...custom } />
+                <Input
+                    type={type} { ...input } { ...custom }
+                />
                 {touched && error && <div>{error}</div>}
             </div>
         );

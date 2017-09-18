@@ -9,11 +9,16 @@ import {
     Sidebar,
     Translated,
     Animation,
-    LoadingBar,
-    Posts
+    LoadingBar
 } from '../../components';
 import Post from '../../components/Post/Post';
-import { NoMatch } from '../../pages';
+import {
+    NoMatch,
+    Posts,
+    AddPost,
+    EditPost,
+    SinglePost
+} from '../../pages';
 import { changeResponsive as changeResponsiveAction } from '../../actions/ui';
 import { toggleSidebar as toggleSidebarAction } from '../../actions/ui';
 
@@ -60,8 +65,10 @@ class Layout extends PureComponent {
         const {
             sidebarCollaped,
             responsiveClass,
-            match
+            match,
+            myState
         } = this.props;
+        console.log(myState);
         const sidebarToggleClass = sidebarCollaped ? 'collapsed' : '';
 
         return (
@@ -86,9 +93,12 @@ class Layout extends PureComponent {
                                 {/* <Route path="/dashboard/b" component={MultiSteps} /> */}
                                 <Route exact path="/dashboard" component={Posts} />
                                 <Route exact path="/dashboard/animation" component={Animation} />
-                                <Route exact path="/dashboard/posts/add" component={Post} />
+                                <Route exact path="/dashboard/posts/add" component={AddPost} />
+                                <Route exact path="/dashboard/posts/edit/:id" component={EditPost} />
+                                <Route exact path="/dashboard/posts/:id" component={SinglePost} />
                                 <Route exact path="/dashboard/posts" name="posts" component={Posts} />
                                 <Route exact path="/dashboard/translated" component={Translated} />
+                                <Route exact path="/dashboard/test" component={Post} />
                                 <Route component={NoMatch} />
                             </Switch>
                         </div>
@@ -100,6 +110,7 @@ class Layout extends PureComponent {
 };
 
 const mapStateToProps = (state) => ({
+    myState: state.toJS(),
     sidebarCollaped: state.getIn(['ui', 'sidebarCollaped']),
     responsiveClass: state.getIn(['ui', 'responsiveClass'])
 });

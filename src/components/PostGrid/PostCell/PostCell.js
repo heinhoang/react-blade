@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 const PostCell = ({
+    path,
     id,
     title,
     subTitle,
@@ -11,7 +12,6 @@ const PostCell = ({
     content,
     imageUrl,
     imageAlt,
-    url,
     readMore,
     deleteResource
 }) => {
@@ -20,11 +20,19 @@ const PostCell = ({
             <Card>
                 {imageUrl && <CardImg top width="100%" src={imageUrl} alt={imageAlt ? imageAlt : title} />}
                 <CardBlock>
-                    <CardTitle>{title}</CardTitle>
+                    <CardTitle>
+                        <Link to={`${path}/${id}`}>
+                            {title}
+                        </Link>
+                    </CardTitle>
                     {subTitle && <CardSubtitle>{subTitle}</CardSubtitle>}
                     <CardText>{content}</CardText>
-                    {readMore && url && <Link href={url} className="btn btn-primary">{readMore}</Link>}
                     {deleteResource && <Button onClick={() => deleteResource(id)}>Delete</Button>}
+                    <Button className="pull-right">
+                        <Link to={`${path}/edit/${id}`}>
+                            Edit
+                        </Link>
+                    </Button>
                 </CardBlock>
             </Card>
         </div>
@@ -39,7 +47,6 @@ PostCell.protoTypes = {
     content: PropTypes.string,
     thumb: PropTypes.string,
     imageAlt: PropTypes.string,
-    url: PropTypes.string,
     readMore: PropTypes.string,
     deleteResource: PropTypes.func
 };

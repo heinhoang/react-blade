@@ -20,8 +20,9 @@ export const getApiResources = (url) => axios.get(url, {
 //     return promise;
 // }
 
-export const postApiResource = (url, resource, config = {}) => {
-    return axios.post(url, resource, config)
+export const postApiResource = (url, resource, config = {}, type = 'post') => {
+    const postType = type === 'post' ? 'post' : 'put';
+    return axios[postType](url, resource, config)
         .then(response => {
             if (response.status === 200) {
                 return response;

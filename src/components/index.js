@@ -6,7 +6,7 @@ import Search from './Search/Search';
 import Translated from './Translated/Translated';
 import Animation from './Animation/Animation';
 import LoadingBar from './LoadingBar/LoadingBar';
-import Posts from './Posts/Posts';
+import PostForm from './PostForm/PostForm';
 
 export {
     Header,
@@ -17,5 +17,5 @@ export {
     Translated,
     Animation,
     LoadingBar,
-    Posts
+    PostForm
 };

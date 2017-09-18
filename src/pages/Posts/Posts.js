@@ -12,12 +12,12 @@ const Posts = ({
     return (
         <Resources
             name={resourceName}
+            storeName={resourceName}
             resources={resources}
-            searchTerm="ut"
         >
-            <Search />
-            <PostGrid />
-            <APagination />
+            {Object.keys(resources).length !== 0 && <Search />}
+            {Object.keys(resources).length !== 0 && <PostGrid path={`/dashboard/${resourceName}`} />}
+            {Object.keys(resources).length !== 0 && <APagination />}
         </Resources>
     );
 }

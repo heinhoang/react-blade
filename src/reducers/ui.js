@@ -2,7 +2,6 @@ import { fromJS } from 'immutable';
 
 import {
     TOGGLE_SIDEBAR,
-    EDITOR_STATE_CHANGE,
     OPEN_SIDEBAR,
     CHANGE_RESPONSIVENESS
 } from '../constants/ui';
@@ -22,8 +21,8 @@ export default (state = initialState, { type, payload }) => {
         return state.merge({ sidebarOpened: [payload] });
     case CHANGE_RESPONSIVENESS:
         return state.merge({ responsiveClass: payload });
-    case EDITOR_STATE_CHANGE:
-        return state.merge({ forms: payload });
+    // case EDITOR_STATE_CHANGE:
+    //     return state.merge({ forms: payload });
     default:
         return initialState;
     }

@@ -15,14 +15,11 @@ class Resources extends PureComponent {
 
         const {
             resources,
-            keywords,
-            searchTerm,
             pagination,
             paginate,
             crudDel,
             crudGet
         } = this.props;
-        this.searchTerm = keywords || searchTerm;
         this.pagination = pagination || resources.pagination || { page: 1, limit: 9, total: 50 };
 
         this.paginate = paginate || this.paginate.bind(this);
@@ -32,8 +29,9 @@ class Resources extends PureComponent {
     }
 
     getR(page = this.pagination.page, limit = this.pagination.limit) {
-        const apiUrl = `${API_URL}/${this.props.name}/?_page=${page}&_limit=${limit}`;
-        this.props.getResources({ api: apiUrl, name: this.props.name });
+        const restApi = this.props.restApi ? `/${this.props.restApi}` : `/?_page=${page}&_limit=${limit}`;
+        const apiUrl = `${API_URL}/${this.props.name}${restApi}`;
+        this.props.getResources({ api: apiUrl, name: this.props.storeName });
     }
 
     deleteR(rId, page = this.pagination.page, limit = this.pagination.limit) {
@@ -60,17 +58,21 @@ class Resources extends PureComponent {
     renderChildren() {
         const {
             resources,
-            children
+            children,
+            keywords,
+            searchTerm,
         } = this.props;
 
         return React.Children.map(children, child => {
-            return React.cloneElement(child, {
-                resources: resources.data,
-                searchTerm: this.searchTerm,
-                deleteResource: this.deleteR,
-                pagination: this.pagination,
-                paginate: this.paginate
-            })
+            const passedProps = child.type === 'div' ? null :
+                {
+                    resources: resources.data,
+                    searchTerm: keywords || searchTerm,
+                    deleteResource: this.deleteR,
+                    pagination: this.pagination,
+                    paginate: this.paginate
+                }
+            return React.cloneElement(child, passedProps);
 
         });
     }
@@ -83,7 +85,6 @@ class Resources extends PureComponent {
         const {
             resources
         } = this.props;
-
         return (
             Object.keys(resources).length !== 0 && <div>
                 {this.renderChildren()}
@@ -97,7 +98,8 @@ Resources.propTypes = {
     resources: PropTypes.object,
     searchTerm: PropTypes.string,
     deleteResource: PropTypes.func,
-    getResources: PropTypes.func
+    getResources: PropTypes.func,
+    storeName: PropTypes.string.isRequired
 };
 
 Resources.defaultProps = {

@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { handleEditorChange as handleEditorChangeAction } from '../../actions/ui';
 import { postResource as postResourceAction } from '../../actions/crud';
 import { API_URL } from '../../constants/config';
 import SelectWrapper from '../../theme/components/SelectWrapper/SelectWrapper';
@@ -23,39 +22,31 @@ const selectOptions = [
 class Post extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.submitCallback = this.submitCallback.bind(this);
         this.state = {
             gender: selectOptions[0].value
         };
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.postResource({ url: `${API_URL}/posts`, form: formName, editorValue: this.props.editorState });
-        return false;
+    submitCallback = (values) => {
+        this.props.postResource({ url: `${API_URL}/posts`, form: formName });
     };
 
     render() {
-
+        const {
+            handleSubmit
+        } = this.props;
         return (
             <Container>
                 <Row>
                     <Col xs="12">
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={handleSubmit(this.submitCallback)}>
                             <Field
                                 name="title"
                                 type="text"
                                 component={InputWrapper}
                                 placeholder="Title"
                             />
-
-                            {/* <Select
-                                name="gender"
-                                value={this.state.gender}
-                                options={selectOptions}
-                                onChange={this.selectChange}
-                                clearable
-                            /> */}
                             <Field
                                 name='content'
                                 component={HTMLEditor}
@@ -74,29 +65,18 @@ class Post extends React.PureComponent {
     }
 }
 
-Post.defaultProps = {
-    editorState: '',
-    selectState: selectOptions[0].value
-};
-
 Post.propTypes = {
     ...propTypes,
-    editorState: PropTypes.string.isRequired,
-    selectState: PropTypes.string.isRequired,
-    handleEditorChange: PropTypes.func.isRequired,
     postResource: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        editorState: state.getIn(['ui', 'forms', formName, 'editor']),
-        auth: state.getIn(['auth']),
-        selectState: state.getIn(['form', formName, 'gender'])
+        auth: state.getIn(['auth'])
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleEditorChange: bindActionCreators(handleEditorChangeAction, dispatch),
     postResource: bindActionCreators(postResourceAction, dispatch)
 });
 

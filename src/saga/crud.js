@@ -1,4 +1,5 @@
 import { put, select, call, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 
 import {
     GET_RESOURCES,
@@ -28,6 +29,7 @@ function* getResources({ meta }) {
     try {
         yield put(showLoading());
         const data = yield call(getApiResources, meta.api);
+        console.log(data);
         yield put(getResourcesSuccess({
             resourceName: meta.name,
             data
@@ -67,14 +69,18 @@ function* deleteResource({ payload }) {
 }
 
 const getResourceForm = (meta) => (state) => {
+    console.log(meta);
     return state.getIn(['form', meta.form]).toJS().values;
 }
-
+// for post & edit
 function* postResource({ meta }) {
     const resource = yield select(getResourceForm(meta));
     try {
-        yield call(postApiResource, meta.url, resource);
+        yield call(postApiResource, meta.url, resource, {}, meta.type);
         yield put(postResourceSuccess());
+        if(meta.type === 'post') {
+            yield put(push(meta.redirect ? meta.redirect : '/'));
+        }
     } catch (e) {
         let message;
         if (e.status === 403) {
