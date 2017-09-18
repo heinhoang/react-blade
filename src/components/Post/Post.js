@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Form } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import { postResource as postResourceAction } from '../../actions/crud';
 import { API_URL } from '../../constants/config';
@@ -29,7 +30,7 @@ class Post extends React.PureComponent {
     }
 
     submitCallback = (values) => {
-        this.props.postResource({ url: `${API_URL}/posts`, form: formName });
+        this.props.postResource({ url: `${API_URL}/posts`, form: formName, type: 'post' });
     };
 
     render() {
@@ -41,6 +42,12 @@ class Post extends React.PureComponent {
                 <Row>
                     <Col xs="12">
                         <Form onSubmit={handleSubmit(this.submitCallback)}>
+                            <Field
+                                name="email"
+                                component="input"
+                                type="email"
+                                placeholder="Email"
+                            />
                             <Field
                                 name="title"
                                 type="text"
@@ -82,4 +89,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default reduxForm({
     form: formName
-})(connect(mapStateToProps, mapDispatchToProps)(userAuthWrapper(Post)));
+})(withRouter(connect(mapStateToProps, mapDispatchToProps)(userAuthWrapper(Post))));

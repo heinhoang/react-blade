@@ -24,11 +24,12 @@ export const postApiResource = (url, resource, config = {}, type = 'post') => {
     const postType = type === 'post' ? 'post' : 'put';
     return axios[postType](url, resource, config)
         .then(response => {
-            if (response.status === 200) {
-                return response;
-            }
-            throw response;
-        });
+            return {
+                success: true,
+                response
+            };
+        })
+        .catch(error => ({ success: false }));
 }
 
 export const deleteApiResource = url => axios.delete(url, {

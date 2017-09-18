@@ -9,7 +9,6 @@ import {
     HTMLEditor
 } from '../../theme/components';
 
-const formName = 'post';
 const selectOptions = [
     { value: 'male', label: 'Male', default: true },
     { value: 'female', label: 'Female' }
@@ -41,8 +40,7 @@ class PostForm extends PureComponent {
     render() {
         const {
             handleSubmit,
-            submitCallback,
-            type
+            submitCallback
         } = this.props;
 
         return (

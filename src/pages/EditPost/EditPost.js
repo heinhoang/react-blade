@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-import { API_URL } from '../../constants/config';
 import { PostForm } from '../../components';
 import { PostResource } from '../../containers';
 import { userAuthWrapper } from '../../utils/auth';

@@ -9,9 +9,9 @@ import { loginUser as loginUserAction } from '../../actions/auth';
 import InputWrapper from '../../theme/components/InputWrapper/InputWrapper';
 
 const Login = ({ handleSubmit, pristine, valid, submitting, invalid, loginUser, location, auth }) => {
-
+    const query = new URLSearchParams(location.search);
     const hdlSubmit = (auth) => {
-        loginUser(location.state ? location.state.nextPathname : '/');
+        loginUser(query.get('redirect') ? query.get('redirect') : '/');
     };
 
     return (

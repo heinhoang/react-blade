@@ -10,7 +10,7 @@ const initialState = fromJS({
     sidebarCollaped: false,
     sidebarOpened: [],
     responsiveClass: '',
-    forms: {}
+    // forms: {}
 });
 
 export default (state = initialState, { type, payload }) => {
@@ -24,6 +24,6 @@ export default (state = initialState, { type, payload }) => {
     // case EDITOR_STATE_CHANGE:
     //     return state.merge({ forms: payload });
     default:
-        return initialState;
+        return state;
     }
 };

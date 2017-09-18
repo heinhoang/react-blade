@@ -65,10 +65,8 @@ class Layout extends PureComponent {
         const {
             sidebarCollaped,
             responsiveClass,
-            match,
-            myState
+            match
         } = this.props;
-        console.log(myState);
         const sidebarToggleClass = sidebarCollaped ? 'collapsed' : '';
 
         return (
@@ -110,7 +108,6 @@ class Layout extends PureComponent {
 };
 
 const mapStateToProps = (state) => ({
-    myState: state.toJS(),
     sidebarCollaped: state.getIn(['ui', 'sidebarCollaped']),
     responsiveClass: state.getIn(['ui', 'responsiveClass'])
 });
