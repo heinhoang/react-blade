@@ -1,5 +1,5 @@
 ## React Blade
-A simple react template, support CRUD features
+A simple react template, support CRUD features (using mock database)
 
 ## Features
 - CRUD
